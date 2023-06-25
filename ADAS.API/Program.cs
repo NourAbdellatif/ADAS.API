@@ -4,6 +4,7 @@ using ADAS.Infrastructure.DIExtensions;
 using ADAS.Infrastructure.Persistence;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ services.AddApplication();
 
 var app = builder.Build();
 
+StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("STRIPE_API_KEY");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

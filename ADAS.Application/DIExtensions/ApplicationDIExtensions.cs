@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ADAS.Clients.MailingClient.DIExtensions;
+using ADAS.Clients.PaymentClient.DIExtensions;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class ApplicationDIExtensions
 		services.AddMapping();
 		services.AddMailingClient();
 		services.AddServices();
+		services.AddPaymentClient();
 		return services;
 	}
 
