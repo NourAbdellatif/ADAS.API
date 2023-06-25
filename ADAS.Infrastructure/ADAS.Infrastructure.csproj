@@ -18,4 +18,13 @@
       <PackageReference Include="Npgsql.NetTopologySuite" Version="7.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ADAS.Application\ADAS.Application.csproj" />
+      <ProjectReference Include="..\ADAS.Domain\ADAS.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

@@ -6,4 +6,18 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ADAS.Domain\ADAS.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="BusinessLogic\Users\Commands" />
+      <Folder Include="BusinessLogic\Users\DTOs" />
+      <Folder Include="BusinessLogic\Users\Queries" />
+    </ItemGroup>
+
 </Project>
