@@ -1,5 +1,6 @@
 ﻿using ADAS.Application.Common.DTOs;
 using ADAS.Application.Interfaces;
+using ADAS.Application.Models.Emails;
 using ADAS.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -10,11 +11,13 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 {
 	private readonly IAdasDbContext _context;
 	private readonly IMapper _mapper;
+	private readonly IMailingService _mailingService;
 
-	public RegisterUserCommandHandler(IAdasDbContext context, IMapper mapper)
+	public RegisterUserCommandHandler(IAdasDbContext context, IMapper mapper, IMailingService mailingService)
 	{
 		_context = context ?? throw new ArgumentNullException(nameof(context));
 		_mapper = mapper ??  throw new ArgumentNullException(nameof(mapper));
+		_mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
 	}
 
 	public async Task<BaseEntityDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -22,6 +25,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 		var user = _mapper.Map<User>(request);
 		await _context.Users.AddAsync(user);
 		await _context.SaveChangesAsync(cancellationToken);
+		var userModel = _mapper.Map<UserRegistrationViewModel>(user);
+		await _mailingService.SendEmailAsync(userModel);
 		return new BaseEntityDTO()
 		{
 			Id = user.Id,

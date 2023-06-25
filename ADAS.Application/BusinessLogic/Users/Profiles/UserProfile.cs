@@ -1,5 +1,6 @@
 ﻿
 using ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
+using ADAS.Application.Models.Emails;
 using ADAS.Domain.Entities;
 using AutoMapper;
 
@@ -11,5 +12,7 @@ public class UserProfile : Profile
 	{
 		CreateMap<RegisterUserCommand, User>()
 			.ForMember(u => u.IsActive, opt => opt.MapFrom(c => true));
+		
+		CreateMap<User, UserRegistrationViewModel>();
 	}
 }
