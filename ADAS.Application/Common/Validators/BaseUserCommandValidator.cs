@@ -22,4 +22,15 @@ public class BaseUserCommandValidator<T> : AbstractValidator<T> where T : BaseUs
 			.WithMessage("Email already exists");
 	}
 	
+	public BaseUserCommandValidator()
+	{
+		RuleFor(c => c.Email)
+			.NotEmpty()
+			.EmailAddress();
+
+		RuleFor(c => c.Password)
+			.NotEmpty()
+			.NotNull();
+	}
+	
 }

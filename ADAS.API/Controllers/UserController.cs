@@ -1,3 +1,4 @@
+using ADAS.Application.BusinessLogic.Users.Commands.LoginUser;
 using ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,15 @@ public class UserController : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand command)
+	public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
+	{
+		_logger.LogInformation("Registering User");
+		var id = await _sender.Send(command);
+		return Ok(id);
+	}
+	
+	[HttpPost]
+	public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
 	{
 		_logger.LogInformation("Registering User");
 		var id = await _sender.Send(command);
