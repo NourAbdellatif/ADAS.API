@@ -19,7 +19,7 @@ public class BaseUserCommandValidator<T> : AbstractValidator<T> where T : BaseUs
 			{
 				return !_context.Users.Any(u=>u.Email == email);
 			})
-			.WithMessage("Email already exists");
+			.WithMessage("Email already exists !");
 	}
 	
 	public BaseUserCommandValidator()
