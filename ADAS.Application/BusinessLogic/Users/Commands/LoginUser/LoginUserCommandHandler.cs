@@ -1,9 +1,11 @@
-﻿using ADAS.Application.Interfaces;
+﻿using ADAS.Application.Common.DTOs;
+using ADAS.Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADAS.Application.BusinessLogic.Users.Commands.LoginUser;
 
-public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, bool>
+public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, BaseEntityDTO>
 {
 	private readonly IAdasDbContext _context;
 
@@ -12,8 +14,12 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, bool>
 		_context = context ?? throw new ArgumentNullException(nameof(context));
 	}
 
-	public async Task<bool> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+	public async Task<BaseEntityDTO> Handle(LoginUserCommand request, CancellationToken cancellationToken)
 	{
-		return _context.Users.Any(u => u.Email == request.Email && u.Password == request.Password);
+		var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Password);
+		return new BaseEntityDTO()
+		{
+			Id = user.Id
+		};
 	}
 }
