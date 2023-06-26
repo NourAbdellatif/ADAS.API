@@ -41,9 +41,16 @@ if (app.Environment.IsDevelopment())
 var scope = app.Services.CreateAsyncScope();
 var db = scope.ServiceProvider.GetService<AdasDBContext>();
 await db.Database.MigrateAsync();
+app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+		name: "default",
+		pattern: "{controller}/{action=Index}/{id?}");
+	endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Welcome to ADAS API."); });
+	endpoints.MapGet("/status", async context => { await context.Response.WriteAsync("Welcome to ADAS API."); });
+});
 
 app.Run();
