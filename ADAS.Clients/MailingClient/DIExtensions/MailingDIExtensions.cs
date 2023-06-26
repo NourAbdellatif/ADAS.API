@@ -16,6 +16,8 @@ public static class MailingDIExtensions
 				options.FromEmail = Environment.GetEnvironmentVariable("SENDGRID_SENDER_EMAIL");
 				options.FromName = Environment.GetEnvironmentVariable("SENDGRID_SENDER_NAME");
 				options.IsEmailEnabled = bool.TryParse(isEmailEnabled, out bool result) && result;
+				options.AdminEmail = Environment.GetEnvironmentVariable("SENDGRID_ADMIN_EMAIL");
+				options.AdminName = Environment.GetEnvironmentVariable("SENDGRID_ADMIN_NAME");
 			});
 		services.AddLocalization(options => options.ResourcesPath = "Localization");
 		services.AddScoped<IViewRender, ViewRender>();

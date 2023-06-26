@@ -8,6 +8,7 @@ namespace ADAS.Infrastructure.Persistence;
 public class AdasDBContext : DbContext, IAdasDbContext
 {
 	public DbSet<User> Users => Set<User>();
+	public DbSet<BugTicket> BugTickets => Set<BugTicket>();
 
 	public AdasDBContext(DbContextOptions<AdasDBContext> options) : base(options)
 	{

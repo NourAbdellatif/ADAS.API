@@ -26,7 +26,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 		await _context.Users.AddAsync(user);
 		await _context.SaveChangesAsync(cancellationToken);
 		var userModel = _mapper.Map<UserRegistrationViewModel>(user);
-		await _mailingService.SendEmailAsync(userModel);
+		await _mailingService.SendRegistrationEmailAsync(userModel);
 		return new BaseEntityDTO()
 		{
 			Id = user.Id,

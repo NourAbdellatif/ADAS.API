@@ -31,8 +31,12 @@ public class SendgridClient : ISendGridClient
 			return null;
 		}
 
-		message.FromEmail = _emailConfig.FromEmail;
-		message.FromName = _emailConfig.FromName;
+		if (message.FromEmail == null || message.FromName == null)
+		{
+			message.FromEmail = _emailConfig.FromEmail;
+			message.FromName = _emailConfig.FromName;
+		}
+
 		var reciever = new EmailAddress(message.ReceiverEmail);
 		var sendgridMessage = new SendGridMessage()
 		{

@@ -22,6 +22,34 @@ namespace ADAS.Infrastructure.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "postgis");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ADAS.Domain.Entities.BugTicket", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsResolved")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BugTickets");
+                });
+
             modelBuilder.Entity("ADAS.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -42,6 +70,22 @@ namespace ADAS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ADAS.Domain.Entities.BugTicket", b =>
+                {
+                    b.HasOne("ADAS.Domain.Entities.User", "User")
+                        .WithMany("BugTickets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ADAS.Domain.Entities.User", b =>
+                {
+                    b.Navigation("BugTickets");
                 });
 #pragma warning restore 612, 618
         }
