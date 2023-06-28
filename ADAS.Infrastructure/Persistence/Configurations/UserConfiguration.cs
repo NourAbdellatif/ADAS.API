@@ -13,10 +13,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 		builder.Property(u => u.Id)
 			.ValueGeneratedOnAdd();
 
-		builder.HasMany(u => u.BugTickets)
-			.WithOne(b => b.User)
-			.HasForeignKey(b => b.UserId);
-
 		builder.Property(u => u.Email)
 			.IsRequired();
 	}
