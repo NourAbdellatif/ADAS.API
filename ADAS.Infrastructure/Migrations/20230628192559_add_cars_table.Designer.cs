@@ -2,6 +2,7 @@
 using ADAS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ADAS.Infrastructure.Migrations
 {
     [DbContext(typeof(AdasDBContext))]
-    partial class AdasDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230628192559_add_cars_table")]
+    partial class addcarstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,10 +62,6 @@ namespace ADAS.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OwnerEmail")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

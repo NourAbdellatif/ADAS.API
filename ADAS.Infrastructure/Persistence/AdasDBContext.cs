@@ -9,6 +9,7 @@ public class AdasDBContext : DbContext, IAdasDbContext
 {
 	public DbSet<User> Users => Set<User>();
 	public DbSet<BugTicket> BugTickets => Set<BugTicket>();
+	public DbSet<Car> Cars => Set<Car>();
 
 	public AdasDBContext(DbContextOptions<AdasDBContext> options) : base(options)
 	{
