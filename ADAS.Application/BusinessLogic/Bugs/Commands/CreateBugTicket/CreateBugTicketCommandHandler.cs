@@ -22,9 +22,9 @@ public class CreateBugTicketCommandHandler : IRequestHandler<CreateBugTicketComm
 
 	public async Task<Unit> Handle(CreateBugTicketCommand request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.Include(u => u.BugTickets).SingleOrDefault(u => u.Id == request.UserId);
+		var car = _context.Cars.Include(u => u.BugTickets).SingleOrDefault(u => u.Id == request.CarId);
 		var bugTicket = _mapper.Map<BugTicket>(request);
-		user?.BugTickets.Add(bugTicket);
+		car?.BugTickets.Add(bugTicket);
 		await _context.SaveChangesAsync(cancellationToken);
 		var bugReportViewModel = _mapper.Map<BugReportViewModel>(bugTicket);
 		await _mailingService.SendBugReportEmailAsync(bugReportViewModel);

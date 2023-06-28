@@ -10,8 +10,8 @@ public class BugProfile : Profile
 	public BugProfile()
 	{
 		CreateMap<BugTicket, BugReportViewModel>()
-			.ForMember(model =>model.UserId, opt => opt.MapFrom(ticket => ticket.User.Id))
-			.ForMember(model => model.UserEmail, opt => opt.MapFrom(ticket => ticket.User.Email))
+			.ForMember(model =>model.CarId, opt => opt.MapFrom(ticket => ticket.Car.Id))
+			.ForMember(model => model.CarOwnerEmail, opt => opt.MapFrom(ticket => ticket.Car.OwnerEmail))
 			.ReverseMap();
 		
 		CreateMap<BugTicket,CreateBugTicketCommand>()

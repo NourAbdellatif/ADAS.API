@@ -11,8 +11,8 @@ public class CreateBugTicketCommandValidator : AbstractValidator<CreateBugTicket
 	{
 		_context = context ?? throw new ArgumentNullException(nameof(context));
 		
-		RuleFor(c => c.UserId)
-			.Must(id => _context.Users.Any(u => u.Id == id))
+		RuleFor(c => c.CarId)
+			.Must(id => _context.Cars.Any(c => c.Id == id))
 			.WithMessage("User with this id does not exist");
 		
 		RuleFor(c => c.Title)

@@ -4,7 +4,7 @@ public class BugTicket : EntityBase
 {
 	public string Title { get; set; }
 	public string Description { get; set; }
-	public string UserId { get; set; }
-	public User User { get; set; }
+	public Car Car { get; set; }
+	public string CarId { get; set; }
 	public bool IsResolved { get; set; }
 }
