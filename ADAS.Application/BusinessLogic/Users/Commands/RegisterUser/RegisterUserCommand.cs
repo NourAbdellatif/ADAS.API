@@ -6,5 +6,4 @@ namespace ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
 
 public class RegisterUserCommand : BaseUserCommand, IRequest<BaseEntityDTO>
 {
-	public string Password { get; set; }
 }

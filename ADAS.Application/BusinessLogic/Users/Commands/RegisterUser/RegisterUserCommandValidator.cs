@@ -9,8 +9,5 @@ public class RegisterUserCommandValidator : BaseUserCommandValidator<RegisterUse
 
 	public RegisterUserCommandValidator(IAdasDbContext context) : base(context)
 	{
-		RuleFor(c => c.Password)
-			.NotEmpty()
-			.MinimumLength(6);
 	}
 }
