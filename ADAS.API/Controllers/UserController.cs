@@ -1,5 +1,6 @@
 using ADAS.Application.BusinessLogic.Users.Commands.LoginUser;
 using ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
+using ADAS.Application.BusinessLogic.Users.Commands.ValidateEmail;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,14 @@ public class UserController : ControllerBase
 		_logger.LogInformation("Registering User");
 		var id = await _sender.Send(command);
 		return Ok(id);
+	}
+	
+	[HttpPost]
+	public async Task<IActionResult> ValidateEmail([FromBody] ValidateUserEmailCommand command)
+	{
+		_logger.LogInformation("Validating Email");
+		var isValid = await _sender.Send(command);
+		return Ok(isValid);
 	}
 	
 }
