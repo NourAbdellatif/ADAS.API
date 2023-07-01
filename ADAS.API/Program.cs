@@ -33,11 +33,8 @@ var app = builder.Build();
 
 StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("STRIPE_API_KEY");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 var scope = app.Services.CreateAsyncScope();
 var db = scope.ServiceProvider.GetService<AdasDBContext>();
 await db.Database.MigrateAsync();
