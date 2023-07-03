@@ -6,4 +6,5 @@ public class User : EntityBase
 	public string Password { get; set; }
 	public bool IsActive { get; set; }
 	public List<BugTicket> BugTickets { get; set; }
+	public int RemainingLoginAttempts { get; set; }
 }

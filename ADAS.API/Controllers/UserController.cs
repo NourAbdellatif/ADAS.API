@@ -1,3 +1,4 @@
+using ADAS.Application.BusinessLogic.Users.Commands.ActivateEmail;
 using ADAS.Application.BusinessLogic.Users.Commands.LoginUser;
 using ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
 using ADAS.Application.BusinessLogic.Users.Commands.ValidateEmail;
@@ -48,6 +49,14 @@ public class UserController : ControllerBase
 		_logger.LogInformation("Validating Email");
 		var isValid = await _sender.Send(command);
 		return Ok(isValid);
+	}
+
+	[HttpGet]
+	public async Task<IActionResult> ActivateEmail([FromQuery] ActivateEmailCommand command)
+	{
+		_logger.LogInformation("Activating Email");
+		await _sender.Send(command);
+		return Ok("Activated");
 	}
 	
 }

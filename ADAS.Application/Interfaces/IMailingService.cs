@@ -6,4 +6,5 @@ public interface IMailingService
 {
 	public Task SendRegistrationEmailAsync(UserRegistrationViewModel userModel);
 	public Task SendBugReportEmailAsync(BugReportViewModel bugReportViewModel);
+	public Task SendActivateEmailAsync(ActivateEmailViewModel userModel);
 }

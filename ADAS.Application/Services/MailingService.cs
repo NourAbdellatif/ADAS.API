@@ -31,6 +31,23 @@ public class MailingService : IMailingService
 		await _sendGridClient.SendAsync(emailMessage);
 	}
 
+	public async Task SendActivateEmailAsync(ActivateEmailViewModel userModel)
+	{
+		var emailMessage = GenerateActivateEmail(userModel);
+		await _sendGridClient.SendAsync(emailMessage);
+	}
+	
+	private EmailMessage GenerateActivateEmail(ActivateEmailViewModel userModel)
+	{
+		var htmlBody = _viewRender.Render("Emails/ActivateEmail", userModel);
+		return new EmailMessage
+		{
+			Subject = "ADAS - Activate Email",
+			HtmlBody = htmlBody,
+			ReceiverEmail = userModel.Email
+		};
+	}
+
 	private EmailMessage GenerateBugReportEmail(BugReportViewModel bugReportViewModel)
 	{
 		var htmlBody = _viewRender.Render("Emails/BugReport", bugReportViewModel);
