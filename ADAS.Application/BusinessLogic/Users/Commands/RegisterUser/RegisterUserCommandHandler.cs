@@ -1,4 +1,5 @@
 ﻿using ADAS.Application.Common.DTOs;
+using ADAS.Application.Constants;
 using ADAS.Application.Interfaces;
 using ADAS.Application.Models.Emails;
 using ADAS.Domain.Entities;
@@ -27,7 +28,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 		await _context.Users.AddAsync(user);
 		await _context.SaveChangesAsync(cancellationToken);
 		var userModel = _mapper.Map<UserRegistrationViewModel>(user);
-		await _mailingService.SendRegistrationEmailAsync(userModel);
+		await _mailingService.SendEmailAsync(userModel, EmailSubjects.Registration);
 		return new BaseEntityDTO()
 		{
 			Id = user.Id,

@@ -19,56 +19,57 @@ public class MailingService : IMailingService
 		_emailConfig = config?.Value ?? throw new ArgumentNullException(nameof(config));
 	}
 
-	public async Task SendRegistrationEmailAsync(UserRegistrationViewModel userModel)
+	public async Task SendEmailAsync<T>(T viewModel, string subject)
 	{
-		var emailMessage = GenerateRegistrationEmail(userModel);
+		var emailMessage = GenerateEmailMessage(viewModel, subject);
 		await _sendGridClient.SendAsync(emailMessage);
 	}
 
-	public async Task SendBugReportEmailAsync(BugReportViewModel bugReportViewModel)
+	private EmailMessage GenerateEmailMessage<T>(T viewModel, string subject)
 	{
-		var emailMessage = GenerateBugReportEmail(bugReportViewModel);
-		await _sendGridClient.SendAsync(emailMessage);
+		string viewPath = GetViewPath(typeof(T));
+		var htmlBody = _viewRender.Render(viewPath, viewModel);
+    
+		var emailMessage = new EmailMessage
+		{
+			Subject = subject,
+			HtmlBody = htmlBody
+		};
+    
+		if (viewModel is UserRegistrationViewModel registrationViewModel)
+		{
+			emailMessage.ReceiverEmail = registrationViewModel.Email;
+		}
+		else if (viewModel is BugReportViewModel bugReportViewModel)
+		{
+			emailMessage.ReceiverEmail = _emailConfig.FromEmail;
+			emailMessage.FromEmail = _emailConfig.AdminEmail;
+			emailMessage.FromName = _emailConfig.AdminName;
+		}
+		else if (viewModel is ActivateEmailViewModel activateEmailViewModel)
+		{
+			emailMessage.ReceiverEmail = activateEmailViewModel.Email;
+		}
+    
+		return emailMessage;
 	}
 
-	public async Task SendActivateEmailAsync(ActivateEmailViewModel userModel)
+	private string GetViewPath(Type viewModelType)
 	{
-		var emailMessage = GenerateActivateEmail(userModel);
-		await _sendGridClient.SendAsync(emailMessage);
-	}
-	
-	private EmailMessage GenerateActivateEmail(ActivateEmailViewModel userModel)
-	{
-		var htmlBody = _viewRender.Render("Emails/ActivateEmail", userModel);
-		return new EmailMessage
+		if (viewModelType == typeof(UserRegistrationViewModel))
 		{
-			Subject = "ADAS - Activate Email",
-			HtmlBody = htmlBody,
-			ReceiverEmail = userModel.Email
-		};
+			return "Emails/Email";
+		}
+		else if (viewModelType == typeof(BugReportViewModel))
+		{
+			return "Emails/BugReport";
+		}
+		else if (viewModelType == typeof(ActivateEmailViewModel))
+		{
+			return "Emails/ActivateEmail";
+		}
+    
+		throw new ArgumentException("Invalid view model type.");
 	}
 
-	private EmailMessage GenerateBugReportEmail(BugReportViewModel bugReportViewModel)
-	{
-		var htmlBody = _viewRender.Render("Emails/BugReport", bugReportViewModel);
-		return new EmailMessage
-		{
-			Subject = "ADAS - Bug Report",
-			HtmlBody = htmlBody,
-			ReceiverEmail = _emailConfig.FromEmail,
-			FromEmail = _emailConfig.AdminEmail,
-			FromName = _emailConfig.AdminName
-		};
-	}
-
-	private EmailMessage GenerateRegistrationEmail(UserRegistrationViewModel userModel)
-	{
-		var htmlBody = _viewRender.Render("Emails/Email", userModel);
-		return new EmailMessage
-		{
-			Subject = "ADAS - Registration",
-			HtmlBody = htmlBody,
-			ReceiverEmail = userModel.Email
-		};
-	}
 }

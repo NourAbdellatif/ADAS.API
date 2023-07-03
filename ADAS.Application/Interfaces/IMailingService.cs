@@ -4,7 +4,5 @@ namespace ADAS.Application.Interfaces;
 
 public interface IMailingService
 {
-	public Task SendRegistrationEmailAsync(UserRegistrationViewModel userModel);
-	public Task SendBugReportEmailAsync(BugReportViewModel bugReportViewModel);
-	public Task SendActivateEmailAsync(ActivateEmailViewModel userModel);
+	public Task SendEmailAsync<T>(T viewModel, string subject);
 }

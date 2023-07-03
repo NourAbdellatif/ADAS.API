@@ -1,4 +1,5 @@
-﻿using ADAS.Application.Interfaces;
+﻿using ADAS.Application.Constants;
+using ADAS.Application.Interfaces;
 using ADAS.Application.Models.Emails;
 using ADAS.Domain.Entities;
 using AutoMapper;
@@ -27,7 +28,7 @@ public class CreateBugTicketCommandHandler : IRequestHandler<CreateBugTicketComm
 		car?.BugTickets.Add(bugTicket);
 		await _context.SaveChangesAsync(cancellationToken);
 		var bugReportViewModel = _mapper.Map<BugReportViewModel>(bugTicket);
-		await _mailingService.SendBugReportEmailAsync(bugReportViewModel);
+		await _mailingService.SendEmailAsync(bugReportViewModel, EmailSubjects.BugReport);
 		return Unit.Value;
 	}
 }

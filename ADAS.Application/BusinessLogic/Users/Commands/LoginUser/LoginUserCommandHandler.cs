@@ -49,7 +49,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginDT
 				Link = activateEmailUrl,
 				Password = user.Password
 			};
-			await _mailingService.SendActivateEmailAsync(activateEmailModel);
+			await _mailingService.SendEmailAsync(activateEmailModel, EmailSubjects.ActivateEmail);
 		}
 
 		await _context.SaveChangesAsync(cancellationToken);
