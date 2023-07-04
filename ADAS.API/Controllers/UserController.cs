@@ -1,4 +1,5 @@
 using ADAS.Application.BusinessLogic.Users.Commands.ActivateEmail;
+using ADAS.Application.BusinessLogic.Users.Commands.ForgotPassword;
 using ADAS.Application.BusinessLogic.Users.Commands.LoginUser;
 using ADAS.Application.BusinessLogic.Users.Commands.RegisterUser;
 using ADAS.Application.BusinessLogic.Users.Commands.ValidateEmail;
@@ -47,6 +48,14 @@ public class UserController : ControllerBase
 	public async Task<IActionResult> ValidateEmail([FromBody] ValidateUserEmailCommand command)
 	{
 		_logger.LogInformation("Validating Email");
+		var isValid = await _sender.Send(command);
+		return Ok(isValid);
+	}
+	
+	[HttpPost]
+	public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommand command)
+	{
+		_logger.LogInformation("Forgot Password");
 		var isValid = await _sender.Send(command);
 		return Ok(isValid);
 	}

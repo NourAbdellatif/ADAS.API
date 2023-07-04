@@ -50,6 +50,10 @@ public class MailingService : IMailingService
 		{
 			emailMessage.ReceiverEmail = activateEmailViewModel.Email;
 		}
+		else if (viewModel is ForgotPasswordViewModel forgotPasswordViewModel)
+		{
+			emailMessage.ReceiverEmail = forgotPasswordViewModel.Email;
+		}
     
 		return emailMessage;
 	}
@@ -67,6 +71,10 @@ public class MailingService : IMailingService
 		else if (viewModelType == typeof(ActivateEmailViewModel))
 		{
 			return "Emails/ActivateEmail";
+		}
+		else if (viewModelType == typeof(ForgotPasswordViewModel))
+		{
+			return "Emails/ForgotPasswordEmail";
 		}
     
 		throw new ArgumentException("Invalid view model type.");

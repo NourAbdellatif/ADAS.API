@@ -2,6 +2,7 @@
 using ADAS.Application.Constants;
 using ADAS.Application.Interfaces;
 using ADAS.Application.Models.Emails;
+using ADAS.Application.Utilities;
 using ADAS.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -24,7 +25,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 	public async Task<BaseEntityDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
 	{
 		var user = _mapper.Map<User>(request);
-		user.Password = Guid.NewGuid().ToString();
+		user.Password = Functions.RandomString();
 		await _context.Users.AddAsync(user);
 		await _context.SaveChangesAsync(cancellationToken);
 		var userModel = _mapper.Map<UserRegistrationViewModel>(user);

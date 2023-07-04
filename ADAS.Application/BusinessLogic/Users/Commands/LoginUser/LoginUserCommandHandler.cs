@@ -3,6 +3,7 @@ using ADAS.Application.BusinessLogic.Users.DTOs;
 using ADAS.Application.Constants;
 using ADAS.Application.Interfaces;
 using ADAS.Application.Models.Emails;
+using ADAS.Application.Utilities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginDT
 			user.IsActive = false;
 			string domain = Environment.GetEnvironmentVariable("DOMAIN");
 			string activateEmailUrl = $"{domain}/User/ActivateEmail?email={user.Email}";
-			user.Password = Guid.NewGuid().ToString();
+			user.Password = Functions.RandomString();
 			var activateEmailModel = new ActivateEmailViewModel()
 			{
 				Email = user.Email,
