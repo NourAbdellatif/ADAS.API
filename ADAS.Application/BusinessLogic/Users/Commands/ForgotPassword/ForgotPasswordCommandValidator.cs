@@ -15,7 +15,7 @@ public class ForgotPasswordCommandValidator : AbstractValidator<ForgotPasswordCo
 			.NotNull()
 			.Must(email =>
 			{
-				return _context.Users.Any(u => u.Email == email);
+				return _context.Users.Any(u => u.Email == email.Trim());
 			})
 			.WithMessage("Email does not exist in the system.");
 	}
