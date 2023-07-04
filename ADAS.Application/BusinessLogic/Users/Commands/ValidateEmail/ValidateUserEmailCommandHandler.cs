@@ -14,6 +14,6 @@ public class ValidateUserEmailCommandHandler : IRequestHandler<ValidateUserEmail
 
 	public async Task<bool> Handle(ValidateUserEmailCommand request, CancellationToken cancellationToken)
 	{
-		return _context.Users.Any(u => u.Email == request.Email);
+		return _context.Users.Any(u => u.Email == request.Email && u.IsActive);
 	}
 }
