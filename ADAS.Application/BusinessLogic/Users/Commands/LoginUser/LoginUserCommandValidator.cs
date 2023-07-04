@@ -17,14 +17,14 @@ public class LoginUserCommandValidator : BaseUserCommandValidator<LoginUserComma
 		RuleFor(x => new { x.Email, x.Password })
 			.Must(body =>
 			{
-				return _context.Users.Any(u => u.Email == body.Email);
+				return _context.Users.Any(u => u.Email == body.Email.Trim());
 			})
 			.WithMessage("Invalid email");
 		
 		RuleFor(x => x.Email)
 			.Must(email =>
 			{
-				var user = _context.Users.SingleOrDefault(u => u.Email == email);
+				var user = _context.Users.SingleOrDefault(u => u.Email == email.Trim());
 				return user != null && user.IsActive;
 			})
 			.WithMessage("Email is not activated");

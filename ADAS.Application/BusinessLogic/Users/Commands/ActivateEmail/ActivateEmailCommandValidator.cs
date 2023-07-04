@@ -12,7 +12,7 @@ public class ActivateEmailCommandValidator : AbstractValidator<ActivateEmailComm
 		RuleFor(c => c.Email)
 			.Must(email =>
 			{
-				return  _context.Users.Any(u => u.Email == email && u.IsActive == false);
+				return  _context.Users.Any(u => u.Email == email.Trim() && u.IsActive == false);
 			})
 			.WithMessage("Invalid email address");
 	}

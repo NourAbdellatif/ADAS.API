@@ -17,7 +17,7 @@ public class BaseUserCommandValidator<T> : AbstractValidator<T> where T : BaseUs
 		RuleFor(c => c.Email)
 			.Must(email =>
 			{
-				return !_context.Users.Any(u=>u.Email == email);
+				return !_context.Users.Any(u=>u.Email == email.Trim());
 			})
 			.WithMessage("Email already exists !");
 	}
