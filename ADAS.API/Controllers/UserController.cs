@@ -67,5 +67,5 @@ public class UserController : ControllerBase
 		await _sender.Send(command);
 		return Ok("Activated");
 	}
-	
+
 }

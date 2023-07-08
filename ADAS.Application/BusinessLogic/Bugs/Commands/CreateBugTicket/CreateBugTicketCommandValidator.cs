@@ -19,9 +19,5 @@ public class CreateBugTicketCommandValidator : AbstractValidator<CreateBugTicket
 			.NotEmpty()
 			.Must(title => title.Length < FieldLength.Small)
 			.WithMessage("Title cannot be empty");
-
-		RuleFor(c => c.Description)
-			.NotEmpty()
-			.Must(description => description.Length < FieldLength.Large);
 	}
 }
