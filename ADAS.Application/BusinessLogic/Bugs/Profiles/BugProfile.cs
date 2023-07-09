@@ -1,4 +1,5 @@
 ﻿using ADAS.Application.BusinessLogic.Bugs.Commands.CreateBugTicket;
+using ADAS.Application.BusinessLogic.Bugs.DTOs;
 using ADAS.Application.Models.Emails;
 using ADAS.Domain.Entities;
 using AutoMapper;
@@ -15,6 +16,9 @@ public class BugProfile : Profile
 			.ReverseMap();
 		
 		CreateMap<BugTicket,CreateBugTicketCommand>()
+			.ReverseMap();
+
+		CreateMap<BugTicket, BugTicketDTO>()
 			.ReverseMap();
 	}
 }

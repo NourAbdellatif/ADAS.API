@@ -21,13 +21,6 @@ public class UserController : ControllerBase
 		_sender = sender ?? throw new ArgumentNullException(nameof(sender));
 	}
 
-	[HttpGet]
-	public IActionResult Get()
-	{
-		_logger.LogInformation("Getting User");
-		return Ok();
-	}
-
 	[HttpPost]
 	public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
 	{

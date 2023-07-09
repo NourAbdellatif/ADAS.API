@@ -1,4 +1,5 @@
 ﻿using ADAS.Application.BusinessLogic.Bugs.Commands.CreateBugTicket;
+using ADAS.Application.BusinessLogic.Bugs.Queries.GetBugTickets;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,5 +21,12 @@ public class BugController : ControllerBase
 	{
 		await _sender.Send(command);
 		return Ok();
+	}
+	
+	[HttpGet("{carId}")]
+	public async Task<IActionResult> Get([FromRoute] GetBugTicketsQuery query)
+	{
+		var ticket = await _sender.Send(query);
+		return Ok(ticket);
 	}
 }
