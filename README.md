@@ -70,7 +70,7 @@ In the ADAS.API Web project create Properties directory and launchsettings.json 
       "applicationUrl": "https://localhost:7091",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DB_CONNECTION_STRING": "Host=localhost;Username=convie_user;Password=convie_password;Database=adas_db",
+        "DB_CONNECTION_STRING": "Host=localhost;Username=adas_user;Password=adas_password;Database=adas_db",
         "SENDGRID_API_KEY": "",
         "SENDGRID_SENDER_EMAIL": "noor.abdelatif@gmail.com",
         "SENDGRID_SENDER_NAME": "ADAS",
